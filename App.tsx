@@ -1,11 +1,18 @@
+import { Container } from '@src/containers';
+import useDarkModeToggler from '@src/hooks/useDarkModeToggler';
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
 const App = () => {
+  const toggleTheme = useDarkModeToggler();
+
   return (
-    <SafeAreaView style={{ backgroundColor: 'white' }}>
+    <Container>
       <Text>Hello World</Text>
-    </SafeAreaView>
+      <Pressable onPress={() => toggleTheme()}>
+        <Text>Toggle</Text>
+      </Pressable>
+    </Container>
   );
 };
 

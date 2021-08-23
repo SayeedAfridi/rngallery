@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { themeModeKey } from '@src/constants/string.constants';
+import { photosKey, themeModeKey } from '@src/constants/string.constants';
 import { ThemeModeString } from '@src/types';
 
 class _StorageService {
@@ -34,6 +34,29 @@ class _StorageService {
     try {
       await this.setItem(themeModeKey, mode);
     } catch (error) {}
+  }
+
+  async savePhoto(photos: any, currentPhotoNumber: number): Promise<void> {
+    try {
+      const data = { photos, currentPhotoNumber };
+      await this.setItem(photosKey, JSON.stringify(data));
+    } catch (error) {}
+  }
+
+  async getPhotos(): Promise<{
+    photos: any;
+    currentPhotoNumber: number;
+  } | null> {
+    try {
+      const data = await this.getItem(photosKey);
+      if (data) {
+        const dataObject = JSON.parse(data);
+        return dataObject as any;
+      }
+      return null;
+    } catch (error) {
+      return null;
+    }
   }
 }
 

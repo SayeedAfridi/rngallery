@@ -1,7 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { CameraButton } from '@src/components';
 import Gallery from '@src/components/gallery/gallery.comp';
 import { Container } from '@src/containers';
+import { useMount } from '@src/hooks';
+import { storageService } from '@src/services';
 import React from 'react';
 import { Asset } from 'react-native-image-picker';
 
@@ -9,7 +10,15 @@ const App = () => {
   const [photos, setPhotos] = React.useState<string[][]>([]);
   const [currentPhotoNumber, setCurrentPhotoNumber] = React.useState<number>(1);
 
-  const addPhoto = (file: Asset) => {
+  useMount(async () => {
+    const data = await storageService.getPhotos();
+    if (data) {
+      setPhotos(data.photos);
+      setCurrentPhotoNumber(data.currentPhotoNumber);
+    }
+  });
+
+  const addPhoto = async (file: Asset) => {
     if (currentPhotoNumber % 2 !== 0) {
       setPhotos(prev => [...prev, [file.uri!]]);
     } else {
@@ -19,12 +28,9 @@ const App = () => {
       arr[index][1] = file.uri!;
     }
     setCurrentPhotoNumber(currentPhotoNumber + 1);
+    await storageService.savePhoto(photos, currentPhotoNumber);
   };
 
-  React.useEffect(() => {
-    console.log('current: ' + currentPhotoNumber);
-    console.log(photos);
-  }, [currentPhotoNumber]);
   return (
     <Container>
       <CameraButton onSelect={addPhoto} />

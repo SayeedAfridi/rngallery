@@ -7,11 +7,10 @@ const theme = {
   colors: {
     background: palette.white,
     primary: palette.yankeeBlue,
-    secondary: palette.darkOrange,
+    secondary: palette.blue,
     text: palette.black,
     grey: palette.grey,
     white: palette.white,
-    danger: palette.red,
     transparent: 'transparent',
   },
   spacing: {
@@ -28,7 +27,6 @@ const theme = {
     l: 20,
     xl: 32,
     none: 0,
-    round: 100 / 2,
   },
   textVariants,
 };
@@ -39,6 +37,8 @@ export const darkTheme: Theme = {
   ...theme,
   colors: {
     ...theme.colors,
+    primary: palette.blue,
+    secondary: palette.yankeeBlue,
     background: palette.yankeeBlue,
     text: palette.white,
   },

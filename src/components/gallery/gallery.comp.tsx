@@ -35,7 +35,7 @@ const Gallery: React.FC<GalleryProps> = ({ photos }) => {
   return (
     <View style={styles.root}>
       <FlatList
-        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         decelerationRate='fast'
         snapToInterval={screenWidth}
         horizontal

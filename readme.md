@@ -1,6 +1,8 @@
-# <img src='https://i.imgur.com/rSzWV4g.png' height='20px' style="" ></img> RN Gallery
+# <img src='https://i.imgur.com/rSzWV4g.png' height='24px' style="" ></img> RN Gallery
 
-![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)
+![Build Status](https://img.shields.io/badge/build-passed-brightgreen)
+[![GitHub version](https://badge.fury.io/gh/SayeedAfridi%2Frngallery.svg)](https://github.com/SayeedAfridi/rngallery)
+<br />
 [![Platform - Android](https://img.shields.io/badge/platform-Android-3ddc84.svg?style=flat&logo=android)](https://www.android.com)
 
 ## Screenshots

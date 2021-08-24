@@ -49,7 +49,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         currentThemeMode: themeMode,
       }}>
       <StatusBar
-        barStyle={themeMode === 'dark' ? 'light-content' : 'dark-content'}
+        barStyle='light-content'
         translucent
         backgroundColor={'rgba(0,0,0, 0.3)'}
       />

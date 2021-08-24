@@ -89,7 +89,8 @@ const Gallery: React.FC<GalleryProps> = ({ photos }) => {
         <View style={{ margin: 4 }} />
         <Button
           disabled={
-            photos.length > 2 && Math.floor(photos.length / 2) <= currentPage
+            photos.length > 2 &&
+            Math.ceil(photos.length / 2) - 1 === currentPage
           }
           onPress={scorllNext}
           title='Next'

@@ -7,3 +7,4 @@ export {
   listenOrientationChange,
   removeOrientationListener,
 } from './layout.utils';
+export { insertAtFront } from './array.utils';

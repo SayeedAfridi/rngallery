@@ -36,17 +36,13 @@ class _StorageService {
     } catch (error) {}
   }
 
-  async savePhoto(photos: any, currentPhotoNumber: number): Promise<void> {
+  async savePhoto(photos: any): Promise<void> {
     try {
-      const data = { photos, currentPhotoNumber };
-      await this.setItem(photosKey, JSON.stringify(data));
+      await this.setItem(photosKey, JSON.stringify(photos));
     } catch (error) {}
   }
 
-  async getPhotos(): Promise<{
-    photos: any;
-    currentPhotoNumber: number;
-  } | null> {
+  async getPhotos(): Promise<any> {
     try {
       const data = await this.getItem(photosKey);
       if (data) {

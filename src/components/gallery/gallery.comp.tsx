@@ -25,6 +25,9 @@ const useStyle = makeStyles(theme => ({
 const Gallery: React.FC<GalleryProps> = ({ photos }) => {
   const styles = useStyle();
   const [activePhoto, setActivePhoto] = React.useState<string>('');
+  const ref = React.useRef<FlatList>();
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
+
   if (!photos.length) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -32,13 +35,36 @@ const Gallery: React.FC<GalleryProps> = ({ photos }) => {
       </View>
     );
   }
+
+  const scorllNext = () => {
+    ref.current?.scrollToOffset({
+      animated: true,
+      offset: screenWidth * (currentPage + 1),
+    });
+    setCurrentPage(currentPage + 1);
+  };
+
+  const scorllPrev = () => {
+    ref.current?.scrollToOffset({
+      animated: true,
+      offset: screenWidth * (currentPage - 1),
+    });
+    setCurrentPage(currentPage - 1);
+  };
+
   return (
     <View style={styles.root}>
       <FlatList
+        ref={ref as any}
         showsHorizontalScrollIndicator={false}
         decelerationRate='fast'
         snapToInterval={screenWidth}
         horizontal
+        onMomentumScrollEnd={event => {
+          setCurrentPage(
+            Math.ceil(event.nativeEvent.contentOffset.x / screenWidth),
+          );
+        }}
         data={photos}
         keyExtractor={item => item[0]}
         renderItem={({ item }) => {
@@ -54,9 +80,21 @@ const Gallery: React.FC<GalleryProps> = ({ photos }) => {
         ItemSeparatorComponent={() => <View style={{ margin: 4 }} />}
       />
       <View style={styles.buttonGroup}>
-        <Button disabled style={{ flexGrow: 1 }} title='Prev' />
+        <Button
+          onPress={scorllPrev}
+          disabled={currentPage === 0}
+          style={{ flexGrow: 1 }}
+          title='Prev'
+        />
         <View style={{ margin: 4 }} />
-        <Button title='Next' style={{ flexGrow: 1 }} />
+        <Button
+          disabled={
+            photos.length > 2 && Math.floor(photos.length / 2) <= currentPage
+          }
+          onPress={scorllNext}
+          title='Next'
+          style={{ flexGrow: 1 }}
+        />
       </View>
       <GalleryModal
         onRequestClose={() => setActivePhoto('')}

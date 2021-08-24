@@ -30,7 +30,7 @@ const GalleryItem = ({ uris, onPress = () => true }: GalleryItemProps) => {
       </Pressable>
       {uris.length > 1 ? (
         <Pressable onPress={() => onPress(uris[1])} style={{ marginTop: 8 }}>
-          <Image source={{ uri: uris[0] }} style={styles.photo} />
+          <Image source={{ uri: uris[1] }} style={styles.photo} />
         </Pressable>
       ) : null}
     </View>
